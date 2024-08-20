@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { PostsService } from '../posts/posts.service';
 import { CreateUserDto } from './dto/req/create-user.dto';
 import { UpdateUserDto } from './dto/req/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly postService: PostsService) {}
-
   public async create(createUserReqDto: CreateUserDto): Promise<any> {
-    this.postService.create({});
     return 'This action adds a new user';
   }
 
