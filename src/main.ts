@@ -1,9 +1,12 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  Logger,
+  ValidationError,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as Sentry from '@sentry/nestjs';
-import { nodeProfilingIntegration } from '@sentry/profiling-node';
 
 import { AppModule } from './app.module';
 import { AppConfig } from './config/config.type';
@@ -34,18 +37,27 @@ async function bootstrap() {
     },
   });
 
+  // Оновлюємо ValidationPipe з кастомною фабрикою винятків
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       transform: true,
       forbidNonWhitelisted: true,
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        return new BadRequestException(
+          validationErrors.map((error) => ({
+            property: error.property,
+            constraints: error.constraints,
+          })),
+        );
+      },
     }),
   );
 
   await app.listen(appConfig.port, () => {
-    Logger.log(`Server running on http://${appConfig.host}:${appConfig.port}`);
+    Logger.log(`Server running on https://${appConfig.host}:${appConfig.port}`);
     Logger.log(
-      `Swagger running on http://${appConfig.host}:${appConfig.port}/docs`,
+      `Swagger running on https://${appConfig.host}:${appConfig.port}/docs`,
     );
   });
 }

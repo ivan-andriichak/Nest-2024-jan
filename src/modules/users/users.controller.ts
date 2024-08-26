@@ -8,7 +8,7 @@ import {
   Param,
   Patch,
   Post,
-  Req,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -33,10 +33,7 @@ export class UsersController {
 
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @Post()
-  public async create(
-    @Req() req: Request,
-    @Body() dto: CreateUserDto,
-  ): Promise<PrivateUserResDto> {
+  public async create(@Body() dto: CreateUserDto): Promise<PrivateUserResDto> {
     return await this.usersService.create(dto);
   }
 
