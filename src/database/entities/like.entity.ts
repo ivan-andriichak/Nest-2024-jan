@@ -5,7 +5,7 @@ import { TableNameEnum } from './enums/table-name.enum';
 import { CreateUpdateModel } from './models/create-update.model';
 import { UserEntity } from './user.entity';
 
-@Entity(TableNameEnum.REFRESH_TOKENS)
+@Entity(TableNameEnum.LIKES)
 export class LikeEntity extends CreateUpdateModel {
   @Column()
   user_id: string;
