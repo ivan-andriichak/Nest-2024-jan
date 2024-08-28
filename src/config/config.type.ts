@@ -37,4 +37,3 @@ export type JwtConfig = {
   accessExpiresIn: number;
   refreshExpiresIn: number;
 };
-

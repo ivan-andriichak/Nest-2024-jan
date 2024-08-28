@@ -7,8 +7,8 @@ import { UsersService } from '../../users/users.service';
 import { SignInReqDto } from '../dto/req/sign-in.req.dto';
 import { SignUpReqDto } from '../dto/req/sign-up.req.dto';
 import { AuthResDto } from '../dto/res/auth.res.dto';
-import { TokenService } from './token.service';
 import { AuthCacheService } from './auth-cach.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
