@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -11,7 +11,7 @@ import { AuthCacheService } from './services/auth-cach.service';
 import { TokenService } from './services/token.service';
 
 @Module({
-  imports: [JwtModule, RedisModule, UsersModule],
+  imports: [JwtModule, RedisModule, forwardRef(() => UsersModule)],
   controllers: [AuthController],
   providers: [
     {
@@ -22,6 +22,6 @@ import { TokenService } from './services/token.service';
     TokenService,
     AuthCacheService,
   ],
-  exports: [],
+  exports: [AuthCacheService],
 })
 export class AuthModule {}

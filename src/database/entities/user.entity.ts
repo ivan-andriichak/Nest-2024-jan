@@ -32,7 +32,7 @@ export class UserEntity extends CreateUpdateModel {
   comments?: CommentEntity[];
 
   @OneToMany(() => ArticleEntity, (entity) => entity.user)
-  articles: ArticleEntity[];
+  articles?: ArticleEntity[];
 
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[];
