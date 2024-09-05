@@ -1,8 +1,35 @@
 import { ArticleEntity } from '../../../database/entities/article.entity';
 import { UserMapper } from '../../users/user.maper';
+import { ArticleListQueryDto } from '../dto/req/article-list.query.dto';
 import { ArticleResDto } from '../dto/res/article.res.dto';
+import { ArticleListResDto } from '../dto/res/article-list.res.dto';
+import { ArticleListItemResDto } from '../dto/res/aticle-list-item.res.dto';
 
 export class ArticleMapper {
+  public static toResponseListDTO(
+    entities: ArticleEntity[],
+    total: number,
+    query: ArticleListQueryDto,
+  ): ArticleListResDto {
+    return {
+      data: entities.map(this.toResponseListItemDTO),
+      total,
+      ...query,
+    };
+  }
+
+  public static toResponseListItemDTO(
+    entity: ArticleEntity,
+  ): ArticleListItemResDto {
+    return {
+      id: entity.id,
+      title: entity.title,
+      description: entity.description,
+      created: entity.created,
+      tags: entity.tags.map((tag) => tag.name),
+    };
+  }
+
   public static toResponseDTO(entity: ArticleEntity): ArticleResDto {
     return {
       id: entity.id,
