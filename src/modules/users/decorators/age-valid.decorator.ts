@@ -7,7 +7,7 @@ export function AgeValid() {
     Type(() => Number),
     IsInt(),
     IsNumber(),
-    Max(120),
+    Max(100),
     Min(15),
   );
 }

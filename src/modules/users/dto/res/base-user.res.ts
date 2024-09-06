@@ -10,11 +10,18 @@ export class BaseUserResDto {
   @ApiProperty()
   email: string;
 
+  @ApiProperty()
   bio?: string;
 
+  @ApiProperty()
   image?: string;
 
+  @ApiProperty()
   createdAt: Date;
 
+  @ApiProperty()
   updatedAt: Date;
+
+  @ApiProperty()
+  isFollowed: boolean;
 }

@@ -9,11 +9,13 @@ export class UserMapper {
       id: data.id,
       name: data.name,
       email: data.email,
-      image: data.image,
+      image: data.image
+        ? `${process.env.AWS_S3_BUCKET_URL}/${data.image}`
+        : null,
       bio: data.bio,
+      isFollowed: data.followings?.length > 0 || false,
     };
   }
-
   public static toIUserData(user: UserEntity, payload: IJwtPayload): IUserData {
     return {
       userId: payload.userId,

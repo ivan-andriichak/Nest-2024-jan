@@ -27,6 +27,7 @@ export class ArticleMapper {
       description: entity.description,
       created: entity.created,
       tags: entity.tags.map((tag) => tag.name),
+      user: UserMapper.toResponseDTO(entity.user),
     };
   }
 

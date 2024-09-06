@@ -8,12 +8,12 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
-  Put,
+  Put, UploadedFile, UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
-  ApiConflictResponse,
+  ApiConflictResponse, ApiConsumes,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiTags,
@@ -27,6 +27,8 @@ import { UpdateUserDto } from './dto/req/update-user.dto';
 import { UserResDto } from './dto/res/user.res.dto';
 import { UserMapper } from './user.maper';
 import { UsersService } from './users.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiFile } from '../../common/decorators/api-file.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -66,6 +68,26 @@ export class UsersController {
   @Delete('me')
   public async removeMe(@CurrentUser() userData: IUserData): Promise<void> {
     return await this.usersService.removeMe(userData);
+  }
+
+  @ApiBearerAuth()
+  @UseInterceptors(FileInterceptor('avatar'))
+  @ApiConsumes('multipart/form-data')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiFile('avatar', false, false)
+  @Post('me/avatar')
+  public async uploadAvatar(
+    @UploadedFile() avatar: Express.Multer.File,
+    @CurrentUser() userData: IUserData,
+  ): Promise<void> {
+    await this.usersService.uploadAvatar(userData, avatar);
+  }
+
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('me/avatar')
+  public async deleteAvatar(@CurrentUser() userData: IUserData): Promise<void> {
+    await this.usersService.deleteAvatar(userData);
   }
 
   @SkipAuth()

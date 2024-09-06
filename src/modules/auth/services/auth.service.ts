@@ -11,6 +11,7 @@ import { TokenPairResDto } from '../dto/res/token-pair.res.dto';
 import { IUserData } from '../interfaces/user-data.interface';
 import { AuthCacheService } from './auth-cach.service';
 import { TokenService } from './token.service';
+import { UserMapper } from '../../users/user.maper';
 
 @Injectable()
 export class AuthService {
@@ -46,7 +47,7 @@ export class AuthService {
         dto.deviceId,
       ),
     ]);
-    return { user, tokens };
+    return { user: UserMapper.toResponseDTO(user), tokens };
   }
 
   public async signIn(dto: SignInReqDto): Promise<AuthResDto> {
@@ -87,7 +88,7 @@ export class AuthService {
       ),
     ]);
     const userEntity = await this.userRepository.findOneBy({ id: user.id });
-    return { user: userEntity, tokens };
+    return { user: UserMapper.toResponseDTO(userEntity), tokens };
   }
 
   public async refresh(userData: IUserData): Promise<TokenPairResDto> {
