@@ -58,7 +58,6 @@ export class ArticleController {
     @Param('articleId') articleId: string,
   ): Promise<ArticleResDto> {
     const result = await this.service.getById(userData, articleId);
-
     return ArticleMapper.toResponseDTO(result);
   }
 

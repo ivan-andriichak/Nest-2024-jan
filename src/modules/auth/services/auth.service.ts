@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 
 import { RefreshTokenRepository } from '../../repository/services/refresh-token.repository';
 import { UserRepository } from '../../repository/services/user.repository';
+import { UserMapper } from '../../users/user.maper';
 import { UsersService } from '../../users/users.service';
 import { SignInReqDto } from '../dto/req/sign-in.req.dto';
 import { SignUpReqDto } from '../dto/req/sign-up.req.dto';
@@ -11,7 +12,6 @@ import { TokenPairResDto } from '../dto/res/token-pair.res.dto';
 import { IUserData } from '../interfaces/user-data.interface';
 import { AuthCacheService } from './auth-cach.service';
 import { TokenService } from './token.service';
-import { UserMapper } from '../../users/user.maper';
 
 @Injectable()
 export class AuthService {

@@ -14,16 +14,16 @@ export const ApiFile = (
         properties: {
           [fileName]: isArray
             ? {
-              type: 'array',
-              items: {
+                type: 'array',
+                items: {
+                  type: 'string',
+                  format: 'binary',
+                },
+              }
+            : {
                 type: 'string',
                 format: 'binary',
               },
-            }
-            : {
-              type: 'string',
-              format: 'binary',
-            },
         },
       },
     }),

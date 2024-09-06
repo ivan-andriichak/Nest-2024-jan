@@ -17,7 +17,6 @@ export class TagRepository extends Repository<TagEntity> {
     qb.orderBy('"tag_articleCount"', 'DESC');
     qb.limit(10);
 
-    const raw = await qb.getRawMany();
     return await qb.getMany();
   }
 }
