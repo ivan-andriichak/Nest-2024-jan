@@ -22,8 +22,8 @@ export class ArticleRepository extends Repository<ArticleEntity> {
       'user.followings',
       'following',
       'following.follower_id = :userId',
-      { userId },
     );
+    qb.setParameter('userId', userId);
 
     if (query.search) {
       qb.andWhere('CONCAT(article.title, article.description) ILIKE :search');
@@ -49,7 +49,7 @@ export class ArticleRepository extends Repository<ArticleEntity> {
 
     qb.leftJoinAndSelect('article.tags', 'tag');
     qb.leftJoinAndSelect('article.user', 'user');
-
+    qb.leftJoinAndSelect('article.likes', 'like', 'like.user_id = :userId');
     qb.leftJoinAndSelect(
       'user.followings',
       'following',

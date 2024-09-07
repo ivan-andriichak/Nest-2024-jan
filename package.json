@@ -50,7 +50,7 @@
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.0"
+    "typeorm": "0.3.21-dev.e7649d2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
